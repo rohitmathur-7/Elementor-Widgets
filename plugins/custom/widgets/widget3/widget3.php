@@ -2,6 +2,13 @@
 
 
 class Widget_3 extends \Elementor\Widget_Base {
+
+	public function __construct( $data = [], $args = null ) {
+		parent::__construct( $data, $args );
+
+		wp_register_script( 'widget-script-1', plugins_url( '/assets/build/js/bundle.min.js', BASE_DIR ), [ 'elementor-frontend' ], false, true );
+		wp_register_style( 'widget-style-1', plugins_url( '/assets/src/css/widget-style-1.css', BASE_DIR ) );
+	}
 	public function get_name() {
 		return 'widget3';
 	}
@@ -145,6 +152,16 @@ class Widget_3 extends \Elementor\Widget_Base {
 			}
 			?>
 		</<?php echo $lists[ $settings['marker_type'] ]; ?>>
+		<div>
+			<button class="firstSelectorClass">
+				Hello
+			</button>
+		</div>
+		<div>
+			<button class="secondSelectorClass">
+				hii
+			</button>
+		</div>
 		<?php
 	}
 
