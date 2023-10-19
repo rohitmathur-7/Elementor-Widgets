@@ -1,5 +1,6 @@
 class WidgetHandlerClass extends elementorModules.frontend.handlers.Base {
   getDefaultSettings() {
+    console.log("3");
     return {
       selectors: {
         firstSelector: ".firstSelectorClass",

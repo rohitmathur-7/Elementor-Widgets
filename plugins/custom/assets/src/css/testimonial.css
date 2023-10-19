@@ -1,0 +1,32 @@
+.testimonial-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: aquamarine;
+}
+
+.testimonial-author-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.testimonial-author img {
+  /* width: 60px;
+  height: 60px; */
+  border-radius: 50%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  max-width: none;
+}
+
+p {
+  margin: 0;
+}
