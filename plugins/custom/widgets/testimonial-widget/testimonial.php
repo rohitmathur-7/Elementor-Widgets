@@ -8,7 +8,7 @@ class Testimonial_Widget extends \Elementor\Widget_Base {
 		parent::__construct( $data, $args );
 
 		wp_register_style( 'testimonial', plugins_url( '/assets/src/css/testimonial.css', BASE_DIR ) );
-
+		wp_register_script( 'testimonial', plugins_url( '/assets/build/js/testimonial.min.js', BASE_DIR ), [ 'elementor-frontend' ], false, true );
 	}
 
 	public function get_name() {
@@ -27,7 +27,13 @@ class Testimonial_Widget extends \Elementor\Widget_Base {
 		return [ 'testimonial' ];
 	}
 
+	public function get_script_depends() {
+		return [ 'testimonial' ];
+	}
+
 	protected function register_controls() {
+
+		$repeater = new \Elementor\Repeater();
 
 		$this->start_controls_section(
 			'testimonial-content',
@@ -37,7 +43,8 @@ class Testimonial_Widget extends \Elementor\Widget_Base {
 			]
 		);
 
-		$this->add_control(
+
+		$repeater->add_control(
 			'content',
 			[ 
 				'label'       => 'Content',
@@ -49,7 +56,7 @@ class Testimonial_Widget extends \Elementor\Widget_Base {
 			]
 		);
 
-		$this->add_control(
+		$repeater->add_control(
 			'image',
 			[ 
 				'label'       => 'Choose Image',
@@ -58,7 +65,7 @@ class Testimonial_Widget extends \Elementor\Widget_Base {
 			]
 		);
 
-		$this->add_group_control(
+		$repeater->add_group_control(
 			\Elementor\Group_Control_Image_Size::get_type(),
 			[ 
 				'name'    => 'imgs', // Usage: `{name}_size` and `{name}_custom_dimension`, in this case `thumbnail_size` and `thumbnail_custom_dimension`.
@@ -68,7 +75,7 @@ class Testimonial_Widget extends \Elementor\Widget_Base {
 			]
 		);
 
-		$this->add_control(
+		$repeater->add_control(
 			'name',
 			[ 
 				'label' => 'Name',
@@ -76,7 +83,7 @@ class Testimonial_Widget extends \Elementor\Widget_Base {
 			]
 		);
 
-		$this->add_control(
+		$repeater->add_control(
 			'title',
 			[ 
 				'label' => 'Title',
@@ -85,7 +92,7 @@ class Testimonial_Widget extends \Elementor\Widget_Base {
 		);
 
 
-		$this->add_control(
+		$repeater->add_control(
 			'link',
 			[ 
 				'label'       => 'Link',
@@ -94,7 +101,7 @@ class Testimonial_Widget extends \Elementor\Widget_Base {
 			]
 		);
 
-		$this->add_control(
+		$repeater->add_control(
 			'image-position',
 			[ 
 				'label'     => 'Image Position',
@@ -110,7 +117,7 @@ class Testimonial_Widget extends \Elementor\Widget_Base {
 			]
 		);
 
-		$this->add_responsive_control(
+		$repeater->add_responsive_control(
 			'alignment',
 			[ 
 				'label'           => 'Alignment',
@@ -137,6 +144,16 @@ class Testimonial_Widget extends \Elementor\Widget_Base {
 					'{{WRAPPER}} .testimonial-container' => 'align-items: {{VALUE}};',
 				]
 
+			]
+		);
+
+		$this->add_control(
+			'repeater-list',
+			[ 
+				'label'       => 'Repeater List',
+				'type'        => \Elementor\Controls_Manager::REPEATER,
+				'fields'      => $repeater->get_controls(),
+				'title_field' => '{{{ content }}}',
 			]
 		);
 
@@ -276,76 +293,79 @@ class Testimonial_Widget extends \Elementor\Widget_Base {
 		);
 
 		$this->end_controls_section();
-
 	}
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		?>
-
 		<div class="testimonial-container">
-			<p class="testimonial-content">
-				<?php echo $settings['content'] ?>
-			</p>
-			<div class="testimonial-author">
-				<div class="testimonial-author-info">
-					<?php
-					if ( ! empty( $settings['link']['url'] ) ) {
-						?>
-						<a href="<?php $settings['link']['url'] ?>">
+			<?php
+			if ( $settings['repeater-list'] ) {
+				foreach ( $settings['repeater-list'] as $item ) {
+					// echo '<pre>';
+					// print_r( $item );
+					// echo '</pre>';
+					?>
+					<p class="testimonial-content">
+						<?php echo $item['content']; ?>
+					</p>
+					<div class="testimonial-author">
+						<div class="testimonial-author-info">
 							<?php
-							if ( ! is_null( $settings['imgs_custom_dimension'] ) ) {
-								$img_size_arr = [ $settings['imgs_custom_dimension']['width'], $settings['imgs_custom_dimension']['height']
-								];
-								echo wp_get_attachment_image( $settings['image']['id'], $img_size_arr );
+							if ( ! empty( $item['link']['url'] ) ) {
+								?>
+								<a href="<?php $item['link']['url'] ?>">
+									<?php
+									if ( ! is_null( $item['imgs_custom_dimension'] ) ) {
+										$img_size_arr = [ $item['imgs_custom_dimension']['width'], $item['imgs_custom_dimension']['height']
+										];
+										echo wp_get_attachment_image( $item['image']['id'], $img_size_arr );
+									} else {
+										echo wp_get_attachment_image( $item['image']['id'], $item['imgs_size'] );
+									}
+									?>
+								</a>
+								<a href="<?php $item['link']['url'] ?>">
+									<div class="testimonial-author-content">
+										<p>
+											<?php echo $item['name'] ?>
+										</p>
+										<p>
+											<?php echo $item['title'] ?>
+										</p>
+									</div>
+								</a>
+								<?php
 							} else {
-								echo wp_get_attachment_image( $settings['image']['id'], $settings['imgs_size'] );
+								?>
+								<?php
+								if ( ! is_null( $item['imgs_custom_dimension'] ) ) {
+									$img_size_arr = [ $item['imgs_custom_dimension']['width'], $item['imgs_custom_dimension']['height']
+									];
+									echo wp_get_attachment_image( $item['image']['id'], $img_size_arr );
+								} else {
+									echo wp_get_attachment_image( $item['image']['id'], $item['imgs_size'] );
+								}
+								?>
+								<div class="testimonial-author-content">
+									<p>
+										<?php echo $item['name'] ?>
+									</p>
+									<p>
+										<?php echo $item['title'] ?>
+									</p>
+								</div>
+								<?php
 							}
 							?>
-						</a>
-						<a href="<?php $settings['link']['url'] ?>">
-							<div class="testimonial-author-content">
-								<p>
-									<?php echo $settings['name'] ?>
-								</p>
-								<p>
-									<?php echo $settings['title'] ?>
-								</p>
-							</div>
-						</a>
-						<?php
-					} else {
-						?>
-						<?php
-						if ( ! is_null( $settings['imgs_custom_dimension'] ) ) {
-							$img_size_arr = [ $settings['imgs_custom_dimension']['width'], $settings['imgs_custom_dimension']['height']
-							];
-							echo wp_get_attachment_image( $settings['image']['id'], $img_size_arr );
-						} else {
-							echo wp_get_attachment_image( $settings['image']['id'], $settings['imgs_size'] );
-						}
-						?>
-						<div class="testimonial-author-content">
-							<p>
-								<?php echo $settings['name'] ?>
-							</p>
-							<p>
-								<?php echo $settings['title'] ?>
-							</p>
 						</div>
-						<?php
-					}
-					?>
-				</div>
-			</div>
+					</div>
+					<?php
+				}
+			}
+			?>
 		</div>
-
-
 		<?php
-
-
-
-
 	}
 
 

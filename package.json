@@ -21,6 +21,7 @@
     "webpack-cli": "^4.10.0"
   },
   "dependencies": {
-    "babel": "^6.23.0"
+    "babel": "^6.23.0",
+    "slick-carousel": "^1.8.1"
   }
 }

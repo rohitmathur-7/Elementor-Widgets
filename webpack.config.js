@@ -3,13 +3,14 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 module.exports = {
-  entry: [
-    path.resolve(__dirname, "plugins/custom/assets/src/js/widget-script-1.js"),
-    path.resolve(__dirname, "plugins/custom/assets/src/js/widget-script-4.js"),
-  ],
+  entry: {
+    widget1: "./plugins/custom/assets/src/js/widget-script-1.js",
+    widget4: "./plugins/custom/assets/src/js/widget-script-4.js",
+    testimonial: "./plugins/custom/assets/src/js/testimonial.js",
+  },
   output: {
-    path: path.resolve(__dirname, "plugins/custom/assets"),
-    filename: "build/js/[name].min.js",
+    filename: "[name].min.js",
+    path: __dirname + "/plugins/custom/assets/build/js",
   },
   plugins: [
     new MiniCssExtractPlugin({
