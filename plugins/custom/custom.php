@@ -36,23 +36,31 @@ function register_new_widgets( $widgets_manager ) {
 	require_once( __DIR__ . '/widgets/widget2/widget2.php' );
 	require_once( __DIR__ . '/widgets/widget3/widget3.php' );
 	require_once( __DIR__ . '/widgets/widget4/widget4.php' );
+	require_once( __DIR__ . '/widgets/accordion/accordion1.php' );
 	require_once( __DIR__ . '/widgets/testimonial-widget/testimonial.php' );
 
 	$widgets_manager->register( new \Widget_1() );
 	$widgets_manager->register( new \Widget_2() );
 	$widgets_manager->register( new \Widget_3() );
 	$widgets_manager->register( new \Widget_4() );
+	$widgets_manager->register( new \Accordion1() );
 	$widgets_manager->register( new \Testimonial_Widget() );
 
 }
 add_action( 'elementor/widgets/register', 'register_new_widgets' );
 
 
-// function register_widgets_scripts() {
-// 	wp_register_script( 'widget-script-1', plugins_url( '/assets/build/js/bundle.min.js', __FILE__ ), [ 'elementor-frontend' ], false, true );
+function register_slick_scripts() {
+	// wp_enqueue_script( 'slick', plugins_url( '/assets/src/js/slick.js', __FILE__ ), [ 'jquery' ] );
+	wp_enqueue_script( 'slick.min', plugins_url( '/assets/src/js/slick.min.js', __FILE__ ), [ 'jquery' ] );
+	wp_enqueue_style( 'main', plugins_url( '/assets/src/css/main.scss', __FILE__ ) );
+	wp_enqueue_style( 'slick', plugins_url( '/assets/src/css/slick.css', __FILE__ ) );
+	wp_enqueue_style( 'slick', plugins_url( '/assets/src/css/slick-theme.css', __FILE__ ) );
+	// wp_enqueue_style( 'slick-theme', plugins_url( '/assets/src/css/slick-theme.css', __FILE__ ) );
+	// wp_enqueue_style( 'slick-theme', plugins_url( '/assets/src/css/slick-theme.scss', __FILE__ ) );
 
-// 	wp_register_style( 'widget-style-1', plugins_url( '/assets/src/css/widget-style-1.css', __FILE__ ) );
-// }
 
-// add_action( 'wp_enqueue_scripts', 'register_widgets_scripts' );
+}
+
+add_action( 'wp_enqueue_scripts', 'register_slick_scripts' );
 

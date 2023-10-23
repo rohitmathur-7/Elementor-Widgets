@@ -4,7 +4,7 @@ class Widget_4 extends \Elementor\Widget_Base {
 
 	public function __construct( $data = [], $args = null ) {
 		parent::__construct( $data, $args );
-		wp_register_script( 'widget-script-4', plugins_url( '/assets/build/js/main.min.js', BASE_DIR ), [ 'elementor-frontend' ], false, true );
+		wp_register_script( 'widget-script-4', plugins_url( '/assets/build/js/widget4.min.js', BASE_DIR ), [ 'elementor-frontend' ], false, true );
 
 	}
 

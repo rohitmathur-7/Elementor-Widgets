@@ -4,13 +4,14 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 module.exports = {
   entry: {
-    widget1: "./plugins/custom/assets/src/js/widget-script-1.js",
-    widget4: "./plugins/custom/assets/src/js/widget-script-4.js",
-    testimonial: "./plugins/custom/assets/src/js/testimonial.js",
+    widget1: "./src/js/widget-script-1.js",
+    widget4: "./src/js/widget-script-4.js",
+    accordion1: "./src/js/accordion1.js",
+    testimonial: "./src/js/testimonial.js",
   },
   output: {
     filename: "[name].min.js",
-    path: __dirname + "/plugins/custom/assets/build/js",
+    path: __dirname + "/build/js",
   },
   plugins: [
     new MiniCssExtractPlugin({
@@ -33,4 +34,5 @@ module.exports = {
   optimization: {
     minimizer: [new CssMinimizerPlugin()],
   },
+  mode: "production",
 };

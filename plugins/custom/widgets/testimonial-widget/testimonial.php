@@ -8,11 +8,11 @@ class Testimonial_Widget extends \Elementor\Widget_Base {
 		parent::__construct( $data, $args );
 
 		wp_register_style( 'testimonial', plugins_url( '/assets/src/css/testimonial.css', BASE_DIR ) );
-		wp_register_script( 'testimonial', plugins_url( '/assets/build/js/testimonial.min.js', BASE_DIR ), [ 'elementor-frontend' ], false, true );
+		wp_register_script( 'testimonial', plugins_url( '/assets/build/js/testimonial.min.js', BASE_DIR ), [ 'elementor-frontend', 'jquery' ], false, true );
 	}
 
 	public function get_name() {
-		return 'Testimonial Widget';
+		return 'testimonial1';
 	}
 
 	public function get_title() {
@@ -143,7 +143,6 @@ class Testimonial_Widget extends \Elementor\Widget_Base {
 				'selectors'       => [ 
 					'{{WRAPPER}} .testimonial-container' => 'align-items: {{VALUE}};',
 				]
-
 			]
 		);
 
@@ -297,24 +296,50 @@ class Testimonial_Widget extends \Elementor\Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
+		// foreach ( $settings['repeater-list'] as $item ) {
+		// 	echo '<pre>';
+		// 	print_r( $item['content'] );
+		// 	echo '</pre>';
+		// }
 		?>
 		<div class="testimonial-container">
 			<?php
 			if ( $settings['repeater-list'] ) {
 				foreach ( $settings['repeater-list'] as $item ) {
-					// echo '<pre>';
-					// print_r( $item );
-					// echo '</pre>';
 					?>
-					<p class="testimonial-content">
-						<?php echo $item['content']; ?>
-					</p>
-					<div class="testimonial-author">
-						<div class="testimonial-author-info">
-							<?php
-							if ( ! empty( $item['link']['url'] ) ) {
-								?>
-								<a href="<?php $item['link']['url'] ?>">
+					<div class="ind-item">
+						<p class="testimonial-content">
+							<?php echo $item['content']; ?>
+						</p>
+						<div class="testimonial-author">
+							<div class="testimonial-author-info">
+								<?php
+								if ( ! empty( $item['link']['url'] ) ) {
+									?>
+									<a href="<?php $item['link']['url'] ?>">
+										<?php
+										if ( ! is_null( $item['imgs_custom_dimension'] ) ) {
+											$img_size_arr = [ $item['imgs_custom_dimension']['width'], $item['imgs_custom_dimension']['height']
+											];
+											echo wp_get_attachment_image( $item['image']['id'], $img_size_arr );
+										} else {
+											echo wp_get_attachment_image( $item['image']['id'], $item['imgs_size'] );
+										}
+										?>
+									</a>
+									<a href="<?php $item['link']['url'] ?>">
+										<div class="testimonial-author-content">
+											<p>
+												<?php echo $item['name'] ?>
+											</p>
+											<p>
+												<?php echo $item['title'] ?>
+											</p>
+										</div>
+									</a>
+									<?php
+								} else {
+									?>
 									<?php
 									if ( ! is_null( $item['imgs_custom_dimension'] ) ) {
 										$img_size_arr = [ $item['imgs_custom_dimension']['width'], $item['imgs_custom_dimension']['height']
@@ -324,8 +349,6 @@ class Testimonial_Widget extends \Elementor\Widget_Base {
 										echo wp_get_attachment_image( $item['image']['id'], $item['imgs_size'] );
 									}
 									?>
-								</a>
-								<a href="<?php $item['link']['url'] ?>">
 									<div class="testimonial-author-content">
 										<p>
 											<?php echo $item['name'] ?>
@@ -334,30 +357,10 @@ class Testimonial_Widget extends \Elementor\Widget_Base {
 											<?php echo $item['title'] ?>
 										</p>
 									</div>
-								</a>
-								<?php
-							} else {
-								?>
-								<?php
-								if ( ! is_null( $item['imgs_custom_dimension'] ) ) {
-									$img_size_arr = [ $item['imgs_custom_dimension']['width'], $item['imgs_custom_dimension']['height']
-									];
-									echo wp_get_attachment_image( $item['image']['id'], $img_size_arr );
-								} else {
-									echo wp_get_attachment_image( $item['image']['id'], $item['imgs_size'] );
+									<?php
 								}
 								?>
-								<div class="testimonial-author-content">
-									<p>
-										<?php echo $item['name'] ?>
-									</p>
-									<p>
-										<?php echo $item['title'] ?>
-									</p>
-								</div>
-								<?php
-							}
-							?>
+							</div>
 						</div>
 					</div>
 					<?php
