@@ -26,14 +26,15 @@ class AccordionHandler extends elementorModules.frontend.handlers.Base {
 
   handleClick(event) {
     event.preventDefault();
-    console.log(event.code);
-    const $title = this.elements.$title;
-    const $content = event.target.next();
+    const $content_ele = event.target.nextElementSibling;
 
-    if ($content.css("max-height") == "0px") {
-      $content.css("max-height", $content.prop("scrollHeight"));
+    if (jQuery($content_ele).css("max-height") == "0px") {
+      jQuery($content_ele).css(
+        "max-height",
+        jQuery($content_ele).prop("scrollHeight")
+      );
     } else {
-      $content.css("max-height", 0);
+      jQuery($content_ele).css("max-height", 0);
     }
   }
 }
