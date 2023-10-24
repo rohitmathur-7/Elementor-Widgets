@@ -1,4 +1,4 @@
-// console.log("New Accordion");
+console.log("New Accordion1111");
 
 class AccordionHandler extends elementorModules.frontend.handlers.Base {
   getDefaultSettings() {

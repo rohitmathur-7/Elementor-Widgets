@@ -72,26 +72,53 @@ class Accordion1 extends \Elementor\Widget_Base {
 		);
 
 		$this->add_control(
-			'icon_accordion_1',
+			'icon_accordion',
 			[ 
-				'label'     => 'Icon',
-				'type'      => \Elementor\Controls_Manager::CHOOSE,
-				'options'   =>
-					[ 
-						'none'         => [ 
-							'title' => 'None',
-							'icon'  => 'eicon-ban'
-						],
-						'upload'       => [ 
-							'title' => 'Upload SVG',
-							'icon'  => 'eicon-upload'
-						],
-						'icon-library' => [ 
-							'title' => 'Icon Library',
-							'icon'  => 'eicon-plus'
-						],
+				'label'       => 'Icon',
+				'type'        => \Elementor\Controls_Manager::ICONS,
+				'default'     => [ 
+					'value'   => 'fas fa-circle',
+					'library' => 'fa-solid',
+				],
+				'recommended' => [ 
+					'fa-solid'   => [ 
+						'circle',
+						'dot-circle',
+						'square-full',
 					],
-				'separator' => 'before',
+					'fa-regular' => [ 
+						'circle',
+						'dot-circle',
+						'square-full',
+					],
+				],
+				'skin'        => 'inline',
+			]
+		);
+
+		$this->add_control(
+			'icon_accordion_active',
+			[ 
+				'label'           => 'Active Icon',
+				'type'            => \Elementor\Controls_Manager::ICONS,
+				'default'         => [ 
+					'value'   => 'fas fa-circle',
+					'library' => 'fa-solid',
+				],
+				'recommended'     => [ 
+					'fa-solid'   => [ 
+						'circle',
+						'dot-circle',
+						'square-full',
+					],
+					'fa-regular' => [ 
+						'circle',
+						'dot-circle',
+						'square-full',
+					],
+				],
+				'skin'            => 'inline',
+				'icon_accordion!' => '',
 			]
 		);
 
@@ -103,6 +130,11 @@ class Accordion1 extends \Elementor\Widget_Base {
 				'options'   => [ 
 					'div' => 'div',
 					'h1'  => 'H1',
+					'h2'  => 'H2',
+					'h3'  => 'H3',
+					'h4'  => 'H4',
+					'h5'  => 'H5',
+					'h6'  => 'H6',
 				],
 				'default'   => 'div',
 				'separator' => 'before',
@@ -131,20 +163,29 @@ class Accordion1 extends \Elementor\Widget_Base {
 			<?php
 			foreach ( $settings['repeater_list'] as $item ) {
 				?>
-				<div class="accordion-title-1">
-					<!-- <a href="" class="accordion-title-1"> -->
+				<div class="accordion-item">
 					<?php
-					echo $item['accordion_title_1'];
+					echo '<' . $settings['tag_title_tag'] . ' class="accordion-title-1" >';
+					if ( ! empty( $settings['icon_accordion'] ) ) {
+						if ( $settings['icon_accordion']['library'] == 'svg' ) {
+							?>
+							<object width="50" height="50" type="image/svg+xml"
+								data="<?php echo $settings['icon_accordion']['value']['url'] ?>"></object>
+							<?php
+						} else {
+							?>
+							<i class="<?php echo $settings['icon_accordion']['value'] ?>"></i>
+							<?php
+						}
+					}
+					echo $item['accordion_title_1'] . '</br>';
+					echo '</' . $settings['tag_title_tag'] . '>';
 					?>
-					<!-- </a> -->
-					<?php
-					echo '</br>';
-					?>
-				</div>
-				<div class="accordion-content-1">
-					<?php
-					echo $item['accordion_content_1'];
-					?>
+					<div class="accordion-content-1">
+						<?php
+						echo $item['accordion_content_1'];
+						?>
+					</div>
 				</div>
 				<?php
 			}
