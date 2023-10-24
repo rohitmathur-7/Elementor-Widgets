@@ -2,10 +2,11 @@
   cursor: pointer;
   transition: 0.5s;
   display: flex;
+  align-items: center;
+  gap: 0.5em;
 }
 
 .accordion-content-1 {
-  /* display: none; */
   padding: 0 18px;
   max-height: 0;
   overflow: hidden;

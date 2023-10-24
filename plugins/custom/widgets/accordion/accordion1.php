@@ -163,13 +163,15 @@ class Accordion1 extends \Elementor\Widget_Base {
 			<?php
 			foreach ( $settings['repeater_list'] as $item ) {
 				?>
-				<div class="accordion-item">
+				<div class="accordion-title-1">
 					<?php
-					echo '<' . $settings['tag_title_tag'] . ' class="accordion-title-1" >';
+					echo '<' . $settings['tag_title_tag'] . ' class="accordion-title-tag">';
 					if ( ! empty( $settings['icon_accordion'] ) ) {
+						?>
+						<?php
 						if ( $settings['icon_accordion']['library'] == 'svg' ) {
 							?>
-							<object width="50" height="50" type="image/svg+xml"
+							<object class="accordion-img-obj" width="50" height="50" type="image/svg+xml"
 								data="<?php echo $settings['icon_accordion']['value']['url'] ?>"></object>
 							<?php
 						} else {
@@ -177,15 +179,17 @@ class Accordion1 extends \Elementor\Widget_Base {
 							<i class="<?php echo $settings['icon_accordion']['value'] ?>"></i>
 							<?php
 						}
+						?>
+						<?php
 					}
 					echo $item['accordion_title_1'] . '</br>';
 					echo '</' . $settings['tag_title_tag'] . '>';
 					?>
-					<div class="accordion-content-1">
-						<?php
-						echo $item['accordion_content_1'];
-						?>
-					</div>
+				</div>
+				<div class="accordion-content-1">
+					<?php
+					echo $item['accordion_content_1'];
+					?>
 				</div>
 				<?php
 			}
