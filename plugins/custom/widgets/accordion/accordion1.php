@@ -99,13 +99,13 @@ class Accordion1 extends \Elementor\Widget_Base {
 		$this->add_control(
 			'icon_accordion_active',
 			[ 
-				'label'           => 'Active Icon',
-				'type'            => \Elementor\Controls_Manager::ICONS,
-				'default'         => [ 
+				'label'       => 'Active Icon',
+				'type'        => \Elementor\Controls_Manager::ICONS,
+				'default'     => [ 
 					'value'   => 'fas fa-circle',
 					'library' => 'fa-solid',
 				],
-				'recommended'     => [ 
+				'recommended' => [ 
 					'fa-solid'   => [ 
 						'circle',
 						'dot-circle',
@@ -117,8 +117,10 @@ class Accordion1 extends \Elementor\Widget_Base {
 						'square-full',
 					],
 				],
-				'skin'            => 'inline',
-				'icon_accordion!' => '',
+				'skin'        => 'inline',
+				'condition'   => [ 
+					'icon_accordion[value]!' => '',
+				]
 			]
 		);
 
@@ -154,10 +156,200 @@ class Accordion1 extends \Elementor\Widget_Base {
 			]
 		);
 
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'accordion_styles',
+			[ 
+				'label' => 'Accordion',
+				'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_control(
+			'border_style',
+			[ 
+				'label'     => 'Border',
+				'type'      => \Elementor\Controls_Manager::SELECT,
+				'options'   => [ 
+					'none'   => 'None',
+					'solid'  => 'Solid',
+					'dashed' => 'Dashed',
+				],
+				'default'   => 'none',
+				'selectors' => [ 
+					'{{WRAPPER}} .accordion-container-1' => 'border-style: {{VALUE}}',
+				]
+			]
+		);
+
+		$this->add_control(
+			'accordion-border-width',
+			[ 
+				'label'      => 'Border Width',
+				'type'       => \Elementor\Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
+				'selectors'  => [ 
+					'{{WRAPPER}} .accordion-container-1' => 'border-width: {{SIZE}}{{UNIT}}'
+				],
+				'condition'  => [ 
+					'border_style!' => 'none',
+				]
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Typography::get_type(),
+			[ 
+				'name'     => 'content_typography',
+				'selector' => '{{WRAPPER}} .accordion-container-1',
+			]
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'accordion_title',
+			[ 
+				'label' => 'Title',
+				'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_control(
+			'title_bg',
+			[ 
+				'label'     => 'Background',
+				'type'      => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [ 
+					'{{WRAPPER}} .accordion-title-1' => 'background-color: {{VALUE}}',
+				]
+			]
+		);
+
+		$this->add_control(
+			'title_color',
+			[ 
+				'label'     => 'Color',
+				'type'      => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [ 
+					'{{WRAPPER}} .accordion-title-1' => 'color: {{VALUE}}',
+				]
+			]
+		);
+
+		$this->add_control(
+			'title_color',
+			[ 
+				'label'     => 'Active Color',
+				'type'      => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [ 
+					'{{WRAPPER}} .accordion-title-1' => 'color: {{VALUE}}',
+				]
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Typography::get_type(),
+			[ 
+				'name'     => 'title_typography',
+				'selector' => '{{WRAPPER}} .accordion-title-1',
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Text_Stroke::get_type(),
+			[ 
+				'name'     => 'title_text_stroke',
+				'selector' => '{{WRAPPER}} .accordion-title-1',
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Text_Shadow::get_type(),
+			[ 
+				'name'     => 'title_text_stroke',
+				'selector' => '{{WRAPPER}} .accordion-title-1',
+			]
+		);
+
+		$this->add_control(
+			'title_padding',
+			[ 
+				'label'     => 'Padding',
+				'type'      => \Elementor\Controls_Manager::DIMENSIONS,
+				'selectors' => [ 
+					'{{WRAPPER}} .accordion-title-1' => 'padding:  {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
+				]
+			]
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'accordion_content',
+			[ 
+				'label' => 'Content',
+				'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_control(
+			'content_bg',
+			[ 
+				'label'     => 'Background',
+				'type'      => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [ 
+					'{{WRAPPER}} .accordion-content-1' => 'background: {{VALUE}}',
+				]
+			]
+		);
+
+		$this->add_control(
+			'content_color',
+			[ 
+				'label'     => 'Color',
+				'type'      => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [ 
+					'{{WRAPPER}} .accordion-content-1' => 'color: {{VALUE}}',
+				]
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Typography::get_type(),
+			[ 
+				'name'     => 'content_typography',
+				'selector' => '{{WRAPPER}} .accordion-content-1',
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Text_Shadow::get_type(),
+			[ 
+				'name'     => 'content_text_stroke',
+				'selector' => '{{WRAPPER}} .accordion-content-1',
+			]
+		);
+
+		$this->add_control(
+			'content_padding',
+			[ 
+				'label'     => 'Padding',
+				'type'      => \Elementor\Controls_Manager::DIMENSIONS,
+				'selectors' => [ 
+					'{{WRAPPER}} .accordion-content-1' => 'padding:  {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
+				]
+			]
+		);
+
+		$this->end_controls_section();
+
 	}
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
+		// print_r( $settings['icon_accordion'] );
 		?>
 		<div class="accordion-container-1">
 			<?php
@@ -176,7 +368,7 @@ class Accordion1 extends \Elementor\Widget_Base {
 							<?php
 						} else {
 							?>
-							<i class="<?php echo $settings['icon_accordion']['value'] ?>"></i>
+							<i class="<?php echo $settings['icon_accordion']['value'] . ' accordion-img-obj' ?>"></i>
 							<?php
 						}
 						?>

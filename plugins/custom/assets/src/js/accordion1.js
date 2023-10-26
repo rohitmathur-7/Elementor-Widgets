@@ -5,8 +5,6 @@ class AccordionHandler extends elementorModules.frontend.handlers.Base {
     return {
       selectors: {
         title: ".accordion-title-1",
-        content: ".accordion-content-1",
-        titleTag: ".accordion-title-tag",
         imgObj: ".accordion-img-obj",
       },
     };
@@ -17,27 +15,30 @@ class AccordionHandler extends elementorModules.frontend.handlers.Base {
 
     return {
       $title: this.$element.find(selectors.title),
-      $content: this.$element.find(selectors.content),
-      $titleTag: this.$element.find(selectors.titleTag),
       $imgObj: this.$element.find(selectors.imgObj),
     };
   }
 
   // Bind the reverse Rows method on the thead .day column.
   bindEvents() {
-    this.elements.$title.on("click", this.handleClick1.bind(this));
+    this.elements.$title.on("click", this.handleClick.bind(this));
   }
 
-  handleClick1(event) {
+  handleClick(event) {
     event.preventDefault();
-
+    // console.log(this);
     const $content_ele1 = event.currentTarget.nextElementSibling;
+    // console.log(this.elements.$imgObj[0].tagName);
+    // console.log(this.elements.$imgObj);
     if (jQuery($content_ele1).css("max-height") == "0px") {
+      // $imgObj.setAttribute("data", settings.icon_accordion_active);
+      // $imgObj.setAttribute("data", settings.icon_accordion);
       jQuery($content_ele1).css(
         "max-height",
         jQuery($content_ele1).prop("scrollHeight")
       );
     } else {
+      // $imgObj.setAttribute("data", settings.icon_accordion_active);
       jQuery($content_ele1).css("max-height", 0);
     }
   }
