@@ -1,0 +1,32 @@
+.info {
+  background-color: blue !important;
+}
+
+.success {
+  background-color: green !important;
+}
+
+.warning {
+  background-color: orange !important;
+}
+
+.danger {
+  background-color: red !important;
+}
+
+.progress-bar-inner-text-container {
+  color: white;
+}
+
+.progress-bar-inner-text {
+  width: 0;
+  background-color: blue;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  transition: width 1s ease-in-out;
+}
+
+.inner-text-content {
+  flex-grow: 1;
+}

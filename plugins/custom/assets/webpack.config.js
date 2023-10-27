@@ -8,6 +8,7 @@ module.exports = {
     widget4: "./src/js/widget-script-4.js",
     accordion1: "./src/js/accordion1.js",
     testimonial: "./src/js/testimonial.js",
+    progressBar: "./src/js/progress-bar.js",
   },
   output: {
     filename: "[name].min.js",

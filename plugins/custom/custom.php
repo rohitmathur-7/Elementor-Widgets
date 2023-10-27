@@ -38,6 +38,7 @@ function register_new_widgets( $widgets_manager ) {
 	require_once( __DIR__ . '/widgets/widget4/widget4.php' );
 	require_once( __DIR__ . '/widgets/accordion/accordion1.php' );
 	require_once( __DIR__ . '/widgets/testimonial-widget/testimonial.php' );
+	require_once( __DIR__ . '/widgets/progress-bar/progress-bar.php' );
 
 	$widgets_manager->register( new \Widget_1() );
 	$widgets_manager->register( new \Widget_2() );
@@ -45,6 +46,7 @@ function register_new_widgets( $widgets_manager ) {
 	$widgets_manager->register( new \Widget_4() );
 	$widgets_manager->register( new \Accordion1() );
 	$widgets_manager->register( new \Testimonial_Widget() );
+	$widgets_manager->register( new \ProgressBar() );
 
 }
 add_action( 'elementor/widgets/register', 'register_new_widgets' );
