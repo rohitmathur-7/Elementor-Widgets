@@ -2,7 +2,6 @@ console.log("Progress bar");
 
 class ProgressBar extends elementorModules.frontend.handlers.Base {
   getDefaultSettings() {
-    // console.log("Here in settings");
     return {
       selectors: {
         innerText: ".progress-bar-inner-text",
@@ -11,30 +10,17 @@ class ProgressBar extends elementorModules.frontend.handlers.Base {
   }
 
   getDefaultElements() {
-    // console.log("Here in elements");
     const selectors = this.getSettings("selectors");
-    // console.log(this);
     return {
       $innerText: this.$element.find(selectors.innerText),
     };
   }
 
-  //   addPercentage() {
-  //     const percentage = this.getElementSettings("percentage");
-  //     const innerText = this.elements.$innerText;
-  //     const newWidth = percentage.size + percentage.unit;
-  //     // console.log("new width " + newWidth);
-  //     // jQuery(innerText).css("background-color", "red");
-  //     jQuery(innerText).css("width", newWidth);
-  //     // jQuery(innerText).css("width", percentage + "%");
-  //   }
-
-  //   onElementChange(propertyName) {
-  //     console.log("in on element change");
-  //     if ("percentage" === propertyName) {
-  //       this.addPercentage();
-  //     }
-  //   }
+  onInit() {
+    super.onInit();
+    const $progressBar = this.elements.$innerText;
+    $progressBar.css("width", $progressBar.data("max") + "%");
+  }
 }
 
 // When the frontend of Elementor is created, add our handler

@@ -88,10 +88,10 @@ class ProgressBar extends \Elementor\Widget_Base {
 				'label'              => 'Percentage',
 				'type'               => \Elementor\Controls_Manager::SLIDER,
 				'frontend_available' => true,
-				'size_units'         => [ 'px', '%', 'em', 'rem', 'custom' ],
+				// 'size_units'         => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'default'            => [ 
 					'unit' => '%',
-					'size' => 0,
+					'size' => 50,
 				],
 			],
 		);
@@ -126,7 +126,7 @@ class ProgressBar extends \Elementor\Widget_Base {
 			<?php echo '</' . $settings['title_html_tag'] . '>' ?>
 			<div class="progress-bar-inner-text-container">
 				<div class="progress-bar-inner-text <?php echo $settings['type'] ?>"
-					style="width: <?php echo $settings['percentage']['size'] . $settings['percentage']['unit'] ?>">
+					data-max="<?php echo $settings['percentage']['size'] ?>">
 					<span class="inner-text-content">
 						<?php echo $settings['inner_text']; ?>
 					</span>
@@ -134,7 +134,7 @@ class ProgressBar extends \Elementor\Widget_Base {
 					if ( $settings['display_percentage'] ) {
 						?>
 						<span>
-							<?php echo $settings['percentage']['size'] . $settings['percentage']['unit']; ?>
+							<?php echo $settings['percentage']['size'] . '%'; ?>
 						</span>
 						<?php
 					}
